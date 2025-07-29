@@ -1,0 +1,20 @@
+version: '3'
+services:
+  mydb:
+    image: postgres:17.5
+    container_name: "jp-postgres"
+    volumes:
+      - db-data:/usr/local/share/postgresql/data
+      - ./:/docker-entrypoint-initdb.d/:ro
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+  app:
+    image: icloudjeansosa/spring-sample
+    container_name: "app-spring-sample"
+    ports:
+      - 8080:8080
+volumes:
+  db-data:
+    driver: local
